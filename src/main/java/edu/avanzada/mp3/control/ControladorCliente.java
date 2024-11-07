@@ -8,8 +8,6 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ControladorCliente extends Thread {
     private Socket socket;
@@ -39,7 +37,7 @@ public class ControladorCliente extends Thread {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             cerrarConexion();
         }
@@ -74,13 +72,13 @@ public class ControladorCliente extends Thread {
             } else if (mensaje.startsWith("descargar")) {
                 String nombreCancion = mensaje.split(" ")[1];
                 enviarCancion(nombreCancion);
-                costoSesion += 15000;
+                costoSesion += 15000;  // Ejemplo de costo por descarga
             }
         }
     }
 
     private void enviarCancion(String nombreCancion) {
-        File archivoCancion = new File("canciones/" + nombreCancion + ".mp3"); // Supongamos que la canción está en formato MP3 y en esta carpeta
+        File archivoCancion = new File("canciones/" + nombreCancion + ".mp3"); // Suponemos que las canciones están en esta carpeta
 
         try (FileInputStream fis = new FileInputStream(archivoCancion);
              BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream())) {
@@ -104,7 +102,6 @@ public class ControladorCliente extends Thread {
             e.printStackTrace();
         }
     }
-
 
     private void finalizarSesion() throws IOException, SQLException {
         salida.writeObject("Total a pagar: $" + costoSesion);

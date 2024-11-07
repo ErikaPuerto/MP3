@@ -1,17 +1,12 @@
 package edu.avanzada.mp3.control;
 
-import edu.avanzada.mp3.modelo.HiloAtencionCliente;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Servidor {
-    private ServerSocket serverSocket;
-    private ControladorServidor controladorServidor;
 
-    public Servidor() {
-        controladorServidor = new ControladorServidor();  // Inicializamos el controlador del servidor
-    }
+    private ServerSocket serverSocket;
 
     public void iniciar(int puerto) {
         try {
@@ -19,19 +14,18 @@ public class Servidor {
             System.out.println("Servidor iniciado en el puerto: " + puerto);
 
             while (true) {
-                // Acepta la conexión de un cliente
                 Socket clienteSocket = serverSocket.accept();
-                
-                // Se crea un nuevo hilo de atención para este cliente
-                new HiloAtencionCliente(clienteSocket, controladorServidor).start();
+                // Crear un hilo para atender al cliente
+                ControladorCliente hilo = new ControladorCliente(clienteSocket);
+                hilo.start();  // Arrancar el hilo de atención para este cliente
             }
         } catch (IOException e) {
-            System.out.println("Error al iniciar el servidor: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         Servidor servidor = new Servidor();
-        servidor.iniciar(8080); // Iniciar en el puerto 8080
+        servidor.iniciar(8080); // Iniciar en puerto 8080
     }
 }
