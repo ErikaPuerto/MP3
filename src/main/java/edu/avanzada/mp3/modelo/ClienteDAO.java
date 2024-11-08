@@ -19,7 +19,7 @@ public class ClienteDAO {
         Connection conexion = Conexion.getInstancia().getConexion();
         
         // Consulta SQL para verificar la autenticación del cliente
-        String sql = "SELECT * FROM Clientes WHERE usuario = ? AND contrasena = ?";
+        String sql = "SELECT * FROM clientes WHERE usuario = ? AND contrasena = ?";
         PreparedStatement ps = conexion.prepareStatement(sql);
         ps.setString(1, usuario);
         ps.setString(2, contrasena);
@@ -27,7 +27,7 @@ public class ClienteDAO {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             // Si el cliente es encontrado, retornamos un objeto ClienteVO con los datos del cliente
-            return new ClienteVO(rs.getInt("id_cliente"), rs.getString("usuario"), rs.getString("contrasena"), rs.getDouble("estado_pago"));
+            return new ClienteVO(rs.getString("usuario"), rs.getString("contrasena"), rs.getDouble("deuda"));
         }
         return null; // Si el cliente no es encontrado, retornamos null
     }
@@ -43,7 +43,7 @@ public class ClienteDAO {
         Connection conexion = Conexion.getInstancia().getConexion();
         
         // Consulta SQL para actualizar el estado de pago de un cliente
-        String sql = "UPDATE Clientes SET estado_pago = ? WHERE id_cliente = ?";
+        String sql = "UPDATE clientes SET deuda = ? WHERE id_cliente = ?";
         PreparedStatement ps = conexion.prepareStatement(sql);
         ps.setDouble(1, nuevoPago);
         ps.setInt(2, idCliente);

@@ -17,7 +17,7 @@ public class CancionDAO {
         Connection conexion = Conexion.getInstancia().getConexion();
         
         // Consulta SQL para obtener todas las canciones disponibles
-        String sql = "SELECT * FROM Canciones";
+        String sql = "SELECT * FROM canciones";
         PreparedStatement ps = conexion.prepareStatement(sql);
         
         // Ejecutamos la consulta y obtenemos los resultados
@@ -26,10 +26,9 @@ public class CancionDAO {
         
         while (rs.next()) {
             // Por cada resultado, creamos un objeto Cancion y lo agregamos a la lista
-            Cancion cancion = new Cancion(rs.getInt("id_cancion"), rs.getString("nombre"), rs.getString("artista"));
+            Cancion cancion = new Cancion(rs.getString("nombre"), rs.getString("artista"), rs.getString("ubicacion"));
             canciones.add(cancion);
         }
-        
         return canciones; // Retornamos la lista de canciones
     }
 }
