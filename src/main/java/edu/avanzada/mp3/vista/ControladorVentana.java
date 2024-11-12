@@ -25,4 +25,8 @@ public void mostrarMensajeSystem(String mensaje) {
         int resultado = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar", JOptionPane.YES_NO_OPTION);
         return resultado == JOptionPane.YES_OPTION;
     }
+    // Método para mostrar un Input Dialog con mensaje y valor por defecto
+    public String mostrarInputDialog(String mensaje, String valorPorDefecto) {
+        return JOptionPane.showInputDialog(null, mensaje, valorPorDefecto);
+    }
 }

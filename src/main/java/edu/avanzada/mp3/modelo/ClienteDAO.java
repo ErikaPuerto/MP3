@@ -33,20 +33,18 @@ public class ClienteDAO {
     }
 
     /**
-     * Método para actualizar el estado de pago de un cliente.
-     * @param idCliente El id del cliente que realizará el pago.
-     * @param nuevoPago El monto actualizado del estado de pago.
+     * Método para actualizar el estado de pago de un cliente en base al usuario.
+     * @param usuario El nombre de usuario del cliente cuyo estado de pago se actualizará.
+     * @param nuevaDeuda El monto actualizado de la deuda del cliente.
      * @throws SQLException Si ocurre un error al realizar la consulta.
      */
-    public void actualizarEstadoPago(int idCliente, double nuevoPago) throws SQLException {
-        // Obtenemos la conexión a la base de datos utilizando el Singleton de Conexion
+    public void actualizarEstadoPago(String usuario, double nuevaDeuda) throws SQLException {
         Connection conexion = Conexion.getInstancia().getConexion();
-        
-        // Consulta SQL para actualizar el estado de pago de un cliente
-        String sql = "UPDATE clientes SET deuda = ? WHERE id_cliente = ?";
+    
+        String sql = "UPDATE clientes SET deuda = ? WHERE usuario = ?";
         PreparedStatement ps = conexion.prepareStatement(sql);
-        ps.setDouble(1, nuevoPago);
-        ps.setInt(2, idCliente);
+        ps.setDouble(1, nuevaDeuda);
+        ps.setString(2, usuario);
         
         // Ejecutamos la actualización en la base de datos
         ps.executeUpdate();
