@@ -1,24 +1,19 @@
 package edu.avanzada.mp3.modelo;
 
 public class ClienteVO {
-    private int id;
     private String usuario;
     private String contrasena;
-    private double estadoPago;
+    private double deuda;
 
-    public ClienteVO(int id, String usuario, String contrasena, double estadoPago) {
-        this.id = id;
+    public ClienteVO(String usuario, String contrasena, double deuda) {
         this.usuario = usuario;
         this.contrasena = contrasena;
-        this.estadoPago = estadoPago;
+        this.deuda = deuda;
     }
 
-    
-
-    public int getId() { return id; }
     public String getUsuario() { return usuario; }
     public String getContrasena() { return contrasena; }
-    public double getEstadoPago() { return estadoPago; }
-    public void setEstadoPago(double estadoPago) { this.estadoPago = estadoPago; }
+    public double getDeuda() { return deuda; }
+    public void setDeuda(double deuda) { this.deuda = deuda; }
 }
 

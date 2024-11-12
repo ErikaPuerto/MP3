@@ -24,7 +24,7 @@ public class ControladorServidor {
         return cancionDAO.obtenerCancionesDisponibles();
     }
 
-    public void actualizarEstadoPago(int idCliente, double nuevoPago) throws SQLException {
-        clienteDAO.actualizarEstadoPago(idCliente, nuevoPago);
+    public void actualizarEstadoPago(String usuario, double nuevoPago) throws SQLException {
+        clienteDAO.actualizarEstadoPago(usuario, nuevoPago);
     }
 }

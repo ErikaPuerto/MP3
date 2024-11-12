@@ -1,18 +1,21 @@
 package edu.avanzada.mp3.modelo;
 
-public class Cancion {
-    private int id;
+import java.io.Serializable;
+
+public class Cancion implements Serializable{
     private String nombre;
     private String artista;
+    private String ubicacion;
 
-    public Cancion(int id, String nombre, String artista) {
-        this.id = id;
+
+    public Cancion(String nombre, String artista, String ubicacion) {
         this.nombre = nombre;
         this.artista = artista;
+        this.ubicacion = ubicacion;
     }
 
-    public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getArtista() { return artista; }
+    public String getUbicacion(){ return ubicacion;}
 }
 

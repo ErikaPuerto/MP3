@@ -11,4 +11,19 @@
         <maven.compiler.target>22</maven.compiler.target>
         <exec.mainClass>edu.avanzada.mp3.MP3</exec.mainClass>
     </properties>
+    <dependencies>
+        <!-- Dependencia del conector MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.32</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        </dependencies>
+
 </project>

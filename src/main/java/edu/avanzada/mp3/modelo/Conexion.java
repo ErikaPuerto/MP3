@@ -1,5 +1,6 @@
 package edu.avanzada.mp3.modelo;
 
+import edu.avanzada.mp3.vista.ControladorVentana;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,9 +13,11 @@ public class Conexion {
     private String url;
     private String usuario;
     private String contrasena;
+    private ControladorVentana mensajes;
 
     // Constructor privado para garantizar que solo haya una instancia
     private Conexion() {
+        this.mensajes = new ControladorVentana();
         cargarDatosConexion();
         conectar();
     }
@@ -31,7 +34,7 @@ public class Conexion {
         Properties propiedades = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("conexion.properties")) {
             if (input == null) {
-                System.out.println("No se encontró el archivo conexion.properties.");
+                mensajes.mostrarMensajeSystem("No se encontró el archivo conexion.properties.");
                 return;
             }
             propiedades.load(input);
@@ -39,16 +42,16 @@ public class Conexion {
             this.usuario = propiedades.getProperty("db.user");
             this.contrasena = propiedades.getProperty("db.password");
         } catch (Exception e) {
-            System.out.println("Error al cargar los datos de conexión: " + e.getMessage());
+            mensajes.mostrarMensajeSystem("Error al cargar los datos de conexión: " + e.getMessage());
         }
     }
 
     private void conectar() {
         try {
             conexion = DriverManager.getConnection(url, usuario, contrasena);
-            System.out.println("Conexión establecida correctamente.");
+            mensajes.mostrarMensajeSystem("Conexión establecida correctamente.");
         } catch (SQLException e) {
-            System.out.println("Error al establecer la conexión: " + e.getMessage());
+            mensajes.mostrarMensajeSystem("Error al establecer la conexión: " + e.getMessage());
         }
     }
 
@@ -60,9 +63,9 @@ public class Conexion {
         if (conexion != null) {
             try {
                 conexion.close();
-                System.out.println("Conexión cerrada correctamente.");
+                mensajes.mostrarMensajeSystem("Conexión cerrada correctamente.");
             } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+                mensajes.mostrarMensajeSystem("Error al cerrar la conexión: " + e.getMessage());
             }
         }
     }
