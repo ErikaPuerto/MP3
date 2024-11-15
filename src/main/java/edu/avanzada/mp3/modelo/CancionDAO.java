@@ -30,4 +30,29 @@ public class CancionDAO {
         }
         return canciones; // Retornamos la lista de canciones
     }
+    
+    public Cancion obtenerCancionPorPosicion(int posicion) throws SQLException {
+        // Obtenemos la lista de canciones disponibles
+        List<Cancion> canciones = obtenerCancionesDisponibles();
+
+        // Validamos si la posición está dentro de los límites de la lista
+        if (posicion >= 0 && posicion < canciones.size()) {
+            return canciones.get(posicion); // Retornamos la canción en la posición dada
+        } else {
+            throw new IndexOutOfBoundsException("La posición especificada no es válida.");
+        }
+    }
+    
+    public String encontrarartistaCancion(int o) {
+        Cancion cancion = null;
+        try {
+            cancion = obtenerCancionPorPosicion(o); 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return cancion.getArtista();
+    }
 }

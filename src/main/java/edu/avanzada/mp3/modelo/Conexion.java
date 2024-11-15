@@ -58,7 +58,33 @@ public class Conexion {
     public Connection getConexion() {
         return conexion;
     }
-
+    
+    // Método para establecer una conexión de prueba
+    public void setConexion(Connection conexionPrueba) {
+        // Si hay una conexión existente, la cerramos
+        if (this.conexion != null) {
+            try {
+                this.conexion.close();
+            } catch (SQLException e) {
+                // Log el error pero continúa con el cambio de conexión
+                e.printStackTrace();
+            }
+        }
+        this.conexion = conexionPrueba;
+    }
+    
+    // Método para reiniciar la instancia (útil para pruebas)
+    public static void reiniciarInstancia() {
+        if (instancia != null && instancia.conexion != null) {
+            try {
+                instancia.conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        instancia = null;
+    }
+    
     public void cerrarConexion() {
         if (conexion != null) {
             try {
